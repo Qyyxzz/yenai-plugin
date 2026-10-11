@@ -58,7 +58,7 @@ export async function getData(e) {
     redis: redisInfo,
     chartData: getChartData(e, chartsCfg.show),
     visualData: _.compact(visualData),
-    otherInfo: getOtherInfo(e),
+    otherInfo: await getOtherInfo(e),
     disks: {
       disksIo: getDiskSpeed(),
       disksSize: HardDisk

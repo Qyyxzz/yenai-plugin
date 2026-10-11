@@ -7,19 +7,25 @@ import { formatDuration } from "../../tools/index.js"
 import moment from "moment"
 
 let osInfo = null;
+let osInfoProbe = null;
 
-(async() => {
-  osInfo = await si.osInfo()
-})()
+// 首次调用
+function ensureOsInfo() {
+  osInfoProbe ??= si.osInfo()
+    .then(r => { osInfo = r })
+    .catch(() => { osInfo = {} })
+  return osInfoProbe
+}
 
-export default function otherInfo(e) {
+export default async function otherInfo(e) {
+  await ensureOsInfo()
   let otherInfo = {
     osInfo: {
       main: osInfo?.platform,
       secondary: osInfo?.distro
     },
     hostname: {
-      main: osInfo.hostname
+      main: osInfo?.hostname
     },
     sysTime: {
       main: getSystime(),

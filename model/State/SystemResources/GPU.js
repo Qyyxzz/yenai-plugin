@@ -1,19 +1,30 @@
 import si from "systeminformation"
 import { Log_Prefix } from "#yenai.components"
 let isGPU = false;
+let gpuProbe = null;
 
-(async function initGetIsGPU() {
-  const { controllers } = await si.graphics()
-  // 初始化GPU获取
-  if (controllers?.find(item =>
-    item.memoryUsed && item.memoryFree && item.utilizationGpu)
-  ) {
-    isGPU = true
-  }
-})()
+// 首次调用
+function ensureGpuProbe() {
+  gpuProbe ??= (async () => {
+    try {
+      const { controllers } = await si.graphics()
+      // 初始化GPU获取
+      if (controllers?.find(item =>
+        item.memoryUsed && item.memoryFree && item.utilizationGpu)
+      ) {
+        isGPU = true
+      }
+    } catch (e) {
+      logger.warn(`${Log_Prefix}[State] 探测GPU失败`, e)
+      isGPU = false
+    }
+  })()
+  return gpuProbe
+}
 
 /** 获取GPU占用 */
 export default async function getGPU() {
+  await ensureGpuProbe()
   if (!isGPU) return false
   try {
     const { controllers } = await si.graphics()

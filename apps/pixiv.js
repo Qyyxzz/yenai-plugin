@@ -44,10 +44,10 @@ export class NewPixiv extends plugin {
           reg: searchUser,
           fnc: "searchUser"
         },
-        {
-          reg: randomImgReg,
-          fnc: "vilipixRandomImg"
-        },
+        //{
+        //reg: randomImgReg,
+        //fnc: "vilipixRandomImg"
+        //},
         {
           reg: "^#?(查看|获取)?热门(t|T)(a|A)(g|G)$",
           fnc: "popularTags"
@@ -56,10 +56,10 @@ export class NewPixiv extends plugin {
           reg: "^#?看?看?相关作品(\\d+)$",
           fnc: "relatedIllust"
         },
-        {
-          reg: "^#来(\\d+)?张推荐图$",
-          fnc: "illustRecommended"
-        },
+        //{
+        //reg: "^#来(\\d+)?张推荐图$",
+        //fnc: "illustRecommended"
+        //},
         {
           reg: "^#?(P|p)ximg(pro)?$",
           fnc: "pximg"

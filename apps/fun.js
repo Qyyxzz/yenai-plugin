@@ -19,14 +19,14 @@ export class Fun extends plugin {
           reg: "^#支付宝到账",
           fnc: "ZFB"
         },
-        {
-          reg: "^#(([\u4e00-\u9fa5]{2,6})-)?([\u4e00-\u9fa5]{2,6})?翻译(.*)$",
-          fnc: "youdao"
-        },
-        {
-          reg: "github.com/[a-zA-Z0-9-]{1,39}/[a-zA-Z0-9_-]{1,100}",
-          fnc: "GH"
-        },
+        //{
+        //reg: "^#(([\u4e00-\u9fa5]{2,6})-)?([\u4e00-\u9fa5]{2,6})?翻译(.*)$",
+        //fnc: "youdao"
+        //},
+        //{
+        //reg: "github.com/[a-zA-Z0-9-]{1,39}/[a-zA-Z0-9_-]{1,100}",
+        //fnc: "GH"
+        //},
         {
           reg: "^#?coser$",
           fnc: "coser"

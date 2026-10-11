@@ -1,14 +1,22 @@
 import si from "systeminformation"
 
 let cpu = null;
-(async() => {
-  cpu = await si.cpu()
-})()
+let cpuProbe = null;
+
+// 首次调用
+function ensureCpu() {
+  cpuProbe ??= si.cpu()
+    .then(r => { cpu = r })
+    .catch(() => { cpu = {} })
+  return cpuProbe
+}
 
 export default async function getCpuInfo() {
-  let { currentLoad: { currentLoad } } = await si.get({
-    currentLoad: "currentLoad"
-  })
+  const [, loadData] = await Promise.all([
+    ensureCpu(),
+    si.get({ currentLoad: "currentLoad" })
+  ])
+  const currentLoad = loadData?.currentLoad?.currentLoad
   let { manufacturer, speed, cores, brand } = cpu ?? {}
   if (currentLoad == null || currentLoad == undefined) return false
   manufacturer = manufacturer?.split(" ")?.[0] ?? "unknown"
