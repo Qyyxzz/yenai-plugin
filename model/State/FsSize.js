@@ -16,7 +16,7 @@ export async function getFsSize() {
   // 将其用量合并到根目录上展示，避免根目录百分比失真
   mergeRootWithDataVolume(fsSize)
   fsSize = fsSize
-    .filter(item => item.size && item.used && item.available && item.use)
+    .filter(item => item.size && item.used != null && item.available != null && item.use != null)
     .filter(item => !isHiddenMount(item))
     // 为空返回false
   if (_.isEmpty(fsSize)) return false

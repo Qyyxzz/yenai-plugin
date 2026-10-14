@@ -17,8 +17,8 @@ export function getFileSize(size, { decimalPlaces = 2, showByte = true, showSuff
     throw new Error("decimalPlaces 必须是一个整数")
   }
 
-  const units = [ "B", "K", "M", "G", "T" ]
-  const powers = [ 0, 1, 2, 3, 4 ]
+  const units = [ "B", "K", "M", "G", "T", "P", "E" ]
+  const powers = [ 0, 1, 2, 3, 4, 5, 6 ]
   const num = 1024.00 // byte
 
   // 提前计算 powers of 1024
